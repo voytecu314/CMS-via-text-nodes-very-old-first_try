@@ -29,14 +29,13 @@ function isTextNode (node) {
 
 }
 
-function detectTextContent (element,eventType) {
+function detectTextContent (element) {
     
     const nodes = element.childNodes;
 
     let parentIsSet = false;
 
     for(let node of nodes) {
-        //if(eventType==='click') return node.textContent;
 
         if( (!parentIsSet) && isTextNode(node) ) { 
 
@@ -59,7 +58,6 @@ function editText (event) {
     event.stopImmediatePropagation();
     event.preventDefault();
     if(event.target.tagName==='I' || event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
-    //const text = detectTextContent(event.target,event.type);
     const textArray = [];
     const loop = event.target.childNodes.length;
     for(let i=0;i<loop;i++){
@@ -77,13 +75,8 @@ function editText (event) {
         event.target.innerHTML += textArray[i].length > 50 ? 
                                 `<textarea cols='25' rows='5' placeholder='${textArray[i]}' id='${id}' style='all: revert' />`
                                 :`<input type='text' value='${textArray[i]}' id='${id}' style='all: revert' />`;
-        //document.querySelector(`#${id}`).addEventListener('mouseleave',(e)=>resetElement(document.querySelector(`#${id}`),previousHTML));
         document.querySelector(`#${id}`).select();
     };
 }
-
-/* function resetElement (target, HTML) {
-    target.parentElement.innerHTML = HTML;
-} */
 
 detectTextContent(document.body, 'load');
