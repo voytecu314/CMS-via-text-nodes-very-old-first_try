@@ -62,7 +62,7 @@ function editText (event) {
     const loop = event.target.childNodes.length;
     for(let i=0;i<loop;i++){
         textArray.push(event.target.childNodes[i].textContent);
-    };
+    }; 
     previousHTML = event.target.innerHTML;
 
     if(previousField) previousField.innerHTML=HTMLfromPreviousField;
@@ -72,10 +72,11 @@ function editText (event) {
     event.target.innerHTML = '';
     for(let i = 0; i < loop; i++) {
         const id = 'id'+crypto.randomUUID();
-        event.target.innerHTML += textArray[i].length > 50 ? 
-                                `<textarea cols='25' rows='5' placeholder='${textArray[i]}' id='${id}' style='all: revert' />`
-                                :`<input type='text' value='${textArray[i]}' id='${id}' style='all: revert' />`;
-        document.querySelector(`#${id}`).select();
+        if (textArray[i].length) {
+            event.target.innerHTML += textArray[i].length > 50 ? 
+            `<textarea cols='25' rows='5' placeholder='${textArray[i]}' id='${id}' style='all: revert' />`
+            :`<input type='text' value='${textArray[i]}' id='${id}' style='all: revert' />`;
+            document.querySelector(`#${id}`).select();}
     };
 }
 
